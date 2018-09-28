@@ -1,31 +1,22 @@
 package aula6swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-public class Questao1 {
+public class Questao1 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	
 	private static String RESULTADO = "...";
 
-	private JFrame janela;
 	private JPanel painelPrincipal;
 	private JLabel labelPrimeiraData;
 	private JLabel labelSegundaData;
@@ -37,41 +28,24 @@ public class Questao1 {
 	
 
 	public Questao1() {
+
 		try {
-			montaTela();
+			montaJFrame();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void montaTela() throws ParseException {
-		preparaJanela();
-		preparaPainelPrincipal();
-		preparaComponentes();
-		preparaBotaoSair();
-		mostraJanela();
+	private void montaJFrame() throws ParseException {		
+		inicializaComponentes();
+		exibeJFrame();
 	}
 
-	private void preparaJanela() {
-		janela = new JFrame("Diferença entre datas");
-		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+	private void inicializaComponentes() throws ParseException {
 
-	private void preparaBotaoSair() {
-		JButton botaoSair = new JButton("Sair");
-
-		botaoSair.addActionListener(actionListener -> System.exit(0));
-
-		painelPrincipal.add(botaoSair);
-	}
-
-	private void preparaPainelPrincipal() {
-		this.painelPrincipal = new JPanel();
-		janela.add(this.painelPrincipal);
-
-	}
-
-	private void preparaComponentes() throws ParseException {
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.painelPrincipal = new JPanel();				
 		this.labelPrimeiraData = new JLabel("Primeira data:");
 		this.labelSegundaData = new JLabel("Segunda data:");
 		this.labelResultado = new JLabel(this.textoResultado);
@@ -80,18 +54,25 @@ public class Questao1 {
 		this.inputPrimeiraData = new JFormattedTextField(mascara);
 		this.inputSegundaData = new JFormattedTextField(mascara);
 
-		this.buttonCalculaDiferenca = new JButton("Calcular Diferença");
-		this.buttonCalculaDiferenca.addActionListener(actionListener -> calculaDiferenca());
+		this.buttonCalculaDiferenca = new JButton("Calcular Diferença");		
 
+		this.add(this.painelPrincipal);
 		this.painelPrincipal.add(this.labelPrimeiraData);
 		this.painelPrincipal.add(this.inputPrimeiraData);
 		this.painelPrincipal.add(this.labelSegundaData);
 		this.painelPrincipal.add(this.inputSegundaData);
 		this.painelPrincipal.add(this.labelResultado);
 		this.painelPrincipal.add(this.buttonCalculaDiferenca);
+		
+		criaEventos();
+
 	}
 
-	private void calculaDiferenca() {
+	private void criaEventos() {
+		this.buttonCalculaDiferenca.addActionListener(actionListener -> calculaDiferencaEntreDatas());		
+	}
+
+	private void calculaDiferencaEntreDatas() {
 
 		String primeiraData = this.inputPrimeiraData.getText();
 		String segundaData = this.inputSegundaData.getText();
@@ -102,9 +83,6 @@ public class Questao1 {
 		
 		long dias = ChronoUnit.DAYS.between(data1, data2);
 		
-		System.out.println(data1);
-		System.out.println(data2);
-		System.out.println(dias);
 		atualizaResultadoNaTela(dias+"");		
 	}
 
@@ -112,17 +90,11 @@ public class Questao1 {
 		this.labelResultado.setText(this.textoResultado.replace(RESULTADO, diferencaEmDias));		
 	}
 
-	private void mostraJanela() {
-		janela.pack();
-		janela.setSize(600, 300);
-		janela.setVisible(true);
-		janela.setLocationRelativeTo(null);
+	private void exibeJFrame() {
+		this.pack();
+		this.setSize(600, 300);
+		this.setVisible(true);
+		this.setLocationRelativeTo(null);
 	}
-
-	public static void main(String[] args) {
-
-		Questao1 questao1 = new Questao1();
-
-	}
-
+	
 }
