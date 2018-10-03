@@ -11,11 +11,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.MaskFormatter;
 
-public class Questao1 extends JFrame {
+import aula6swing.questoes.interfaces.JFrameConfiguracoesBasicas;
+
+public class Questao1 extends JFrame implements JFrameConfiguracoesBasicas {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static String RESULTADO = "...";
+	
+	private final int LARGURA = 600;
+	private final int ALTURA = 300;
+	
+	private String textoResultado = "A diferença entre as datas é de ... dias";
 
 	private JPanel painelPrincipal;
 	private JLabel labelPrimeiraData;
@@ -24,7 +31,6 @@ public class Questao1 extends JFrame {
 	private JFormattedTextField inputPrimeiraData;
 	private JFormattedTextField inputSegundaData;
 	private JButton buttonCalculaDiferenca;
-	private String textoResultado = "A diferença entre as datas é de ... dias";
 	
 
 	public Questao1() {
@@ -36,16 +42,16 @@ public class Questao1 extends JFrame {
 		}
 	}
 
-	private void montaJFrame() throws ParseException {		
+	private void montaJFrame() throws ParseException {
 		inicializaComponentes();
-		exibeJFrame();
+		configurarExibicao(this, LARGURA, ALTURA);
 	}
 
 	private void inicializaComponentes() throws ParseException {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		this.painelPrincipal = new JPanel();				
+
+		this.painelPrincipal = new JPanel();
 		this.labelPrimeiraData = new JLabel("Primeira data:");
 		this.labelSegundaData = new JLabel("Segunda data:");
 		this.labelResultado = new JLabel(this.textoResultado);
@@ -54,7 +60,7 @@ public class Questao1 extends JFrame {
 		this.inputPrimeiraData = new JFormattedTextField(mascara);
 		this.inputSegundaData = new JFormattedTextField(mascara);
 
-		this.buttonCalculaDiferenca = new JButton("Calcular Diferença");		
+		this.buttonCalculaDiferenca = new JButton("Calcular Diferença");
 
 		this.add(this.painelPrincipal);
 		this.painelPrincipal.add(this.labelPrimeiraData);
@@ -63,13 +69,13 @@ public class Questao1 extends JFrame {
 		this.painelPrincipal.add(this.inputSegundaData);
 		this.painelPrincipal.add(this.labelResultado);
 		this.painelPrincipal.add(this.buttonCalculaDiferenca);
-		
+
 		criaEventos();
 
 	}
 
 	private void criaEventos() {
-		this.buttonCalculaDiferenca.addActionListener(actionListener -> calculaDiferencaEntreDatas());		
+		this.buttonCalculaDiferenca.addActionListener(actionListener -> calculaDiferencaEntreDatas());
 	}
 
 	private void calculaDiferencaEntreDatas() {
@@ -80,21 +86,14 @@ public class Questao1 extends JFrame {
 		DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate data1 = LocalDate.parse(primeiraData, dateformatter);
 		LocalDate data2 = LocalDate.parse(segundaData, dateformatter);
-		
+
 		long dias = ChronoUnit.DAYS.between(data1, data2);
-		
-		atualizaResultadoNaTela(dias+"");		
+
+		atualizaResultadoNaTela(dias + "");
 	}
 
 	private void atualizaResultadoNaTela(String diferencaEmDias) {
-		this.labelResultado.setText(this.textoResultado.replace(RESULTADO, diferencaEmDias));		
+		this.labelResultado.setText(this.textoResultado.replace(RESULTADO, diferencaEmDias));
 	}
 
-	private void exibeJFrame() {
-		this.pack();
-		this.setSize(600, 300);
-		this.setVisible(true);
-		this.setLocationRelativeTo(null);
-	}
-	
 }
