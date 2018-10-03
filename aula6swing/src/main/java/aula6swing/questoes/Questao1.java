@@ -1,4 +1,4 @@
-package aula6swing;
+package aula6swing.questoes;
 
 import java.text.ParseException;
 import java.time.LocalDate;

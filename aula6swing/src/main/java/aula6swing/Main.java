@@ -3,6 +3,8 @@ package aula6swing;
 import java.io.IOException;
 import java.util.Scanner;
 
+import aula6swing.questoes.Questao1;
+
 public class Main {
 
 	public static void main(String[] args) throws IOException {
