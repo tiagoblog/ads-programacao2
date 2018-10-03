@@ -1,5 +1,7 @@
 package aula6swing.questoes;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,23 +31,18 @@ public class Questao1 extends JFrame implements JFrameConfiguracoesBasicas {
 	private JFormattedTextField inputSegundaData;
 	private JButton buttonCalculaDiferenca;
 	
-	public Questao1() {
-		
+	public Questao1() {		
 		super("Diferença entre datas");
-
 		try {
-			montaJFrame();
+			inicializaComponentes();
+			criaEventos();
+			configurarExibicao(this);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void montaJFrame() throws ParseException {
-		inicializaComponentes();
-		configurarExibicao(this);
-	}
-
-	private void inicializaComponentes() throws ParseException {
+	public void inicializaComponentes() throws ParseException {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -67,12 +64,9 @@ public class Questao1 extends JFrame implements JFrameConfiguracoesBasicas {
 		this.painelPrincipal.add(this.inputSegundaData);
 		this.painelPrincipal.add(this.labelResultado);
 		this.painelPrincipal.add(this.buttonCalculaDiferenca);
-
-		criaEventos();
-
 	}
 
-	private void criaEventos() {
+	public void criaEventos() {
 		this.buttonCalculaDiferenca.addActionListener(actionListener -> calculaDiferencaEntreDatas());
 	}
 

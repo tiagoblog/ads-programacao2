@@ -1,5 +1,7 @@
 package aula6swing.questoes.interfaces;
 
+import java.text.ParseException;
+
 import javax.swing.JFrame;
 
 public interface JFrameConfiguracoesBasicas {
@@ -13,4 +15,8 @@ public interface JFrameConfiguracoesBasicas {
 		jframe.setVisible(true);
 		jframe.setLocationRelativeTo(null);
 	}
+	
+	public void inicializaComponentes() throws ParseException;
+	
+	public void criaEventos();
 }
