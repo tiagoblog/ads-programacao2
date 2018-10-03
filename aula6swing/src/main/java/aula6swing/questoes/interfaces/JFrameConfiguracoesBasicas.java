@@ -4,15 +4,13 @@ import javax.swing.JFrame;
 
 public interface JFrameConfiguracoesBasicas {
 	
-	public default void configurarExibicao(JFrame jframe, int width, int heigth) {	
+	public final int LARGURA = 600;
+	public final int ALTURA = 600;
+	
+	public default void configurarExibicao(JFrame jframe) {	
 		jframe.pack();
-		jframe.setSize(width,heigth);
+		jframe.setSize(LARGURA,ALTURA);
 		jframe.setVisible(true);
 		jframe.setLocationRelativeTo(null);
 	}
-	
-	public default void adicionaComponentes() {
-		
-	}
-
 }

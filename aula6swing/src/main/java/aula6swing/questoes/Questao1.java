@@ -17,10 +17,7 @@ public class Questao1 extends JFrame implements JFrameConfiguracoesBasicas {
 
 	private static final long serialVersionUID = 1L;
 
-	private static String RESULTADO = "...";
-	
-	private final int LARGURA = 600;
-	private final int ALTURA = 300;
+	private static String RESULTADO = "...";	
 	
 	private String textoResultado = "A diferença entre as datas é de ... dias";
 
@@ -32,8 +29,9 @@ public class Questao1 extends JFrame implements JFrameConfiguracoesBasicas {
 	private JFormattedTextField inputSegundaData;
 	private JButton buttonCalculaDiferenca;
 	
-
 	public Questao1() {
+		
+		super("Diferença entre datas");
 
 		try {
 			montaJFrame();
@@ -44,7 +42,7 @@ public class Questao1 extends JFrame implements JFrameConfiguracoesBasicas {
 
 	private void montaJFrame() throws ParseException {
 		inicializaComponentes();
-		configurarExibicao(this, LARGURA, ALTURA);
+		configurarExibicao(this);
 	}
 
 	private void inicializaComponentes() throws ParseException {
